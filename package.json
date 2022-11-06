@@ -6,9 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "date-format": "^4.0.14",
+    "javascript-time-ago": "^2.5.9",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "relative-time-format": "^1.1.6"
   },
   "devDependencies": {
     "@types/node": "18.11.3",

@@ -1,16 +1,42 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
+import PostData from "../src/post_data";
+import Feed from "./feed";
+import ThemeSwitch, { applyTheme } from "./themeSwitch";
 
 const Home: NextPage = () => {
-	return (
-		<div className="flex min-h-screen flex-col items-center justify-center py-2 bg-black">
-			<Head>
-				<title>glitter</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+	let data: PostData[] = [
+		{ author: "jan mante", text: "ma o toki!", timestamp: 0 },
+		{ author: "Manteo", text: "Saluton, mondo!", timestamp: 200000000000 },
+		{
+			author: "Mante",
+			text: "Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world!",
+			timestamp: 1000000000000,
+		},
+		{
+			author: "Mante",
+			text: "this is a lot of 'a' without spaces: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+			timestamp: 1000000000000,
+		},
+	];
 
-			<h1 className="text-6xl font-bold text-glitter">glitter</h1>
-			<h1 className="text-6xl font-bold text-starlight">starlight</h1>
+	useEffect(() => {
+		applyTheme();
+	});
+
+	return (
+		<div className="absolute w-screen h-screen bg-white-0 dark:bg-black-0">
+			<div>
+				<Head>
+					<title>glitter</title>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
+
+				<Feed posts={data}></Feed>
+
+				<ThemeSwitch></ThemeSwitch>
+			</div>
 		</div>
 	);
 };
