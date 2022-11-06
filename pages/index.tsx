@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
 import PostData from "../src/post_data";
-import Feed from "./feed";
-import ThemeSwitch, { applyTheme } from "./themeSwitch";
+import Feed from "../components/feed";
+import ThemeSwitch, { applyTheme } from "../components/themeSwitch";
 
 const Home: NextPage = () => {
 	let data: PostData[] = [
