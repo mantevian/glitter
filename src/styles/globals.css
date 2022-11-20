@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	line-height: initial;
+	font-size: 0.9rem;
+}
+
+* {
+	font-family: "Nunito Sans", sans-serif;
+}
+
+@layer components {
+	.generic-box {
+		@apply border rounded-sm p-2
+			bg-white-1 dark:bg-black-1
+			border-white-3 dark:border-black-3;
+	}
+
+	.header {
+		@apply sticky z-10 top-0 left-0
+			flex items-center
+			h-12 w-screen
+			bg-white-3 dark:bg-black-3
+			border-b border-white-6 dark:border-black-6
+			px-16;
+	}
+
+	.timestamp {
+		@apply text-xs
+			text-white-7 dark:text-black-7
+			font-medium
+			align-bottom;
+	}
+
+	form > input {
+		@apply bg-white-4 dark:bg-black-4
+		p-1;
+	}
+
+	button,
+	[type="button"],
+	[type="reset"],
+	[type="submit"] {
+		@apply bg-white-4 dark:bg-black-4
+		p-2;
+	}
+}
