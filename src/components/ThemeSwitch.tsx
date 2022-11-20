@@ -7,6 +7,9 @@ export default function () {
 	const { theme, setTheme } = useTheme();
 	const [mounted, setMounted] = useState<boolean>(false);
 
+	if (!theme)
+		setTheme('light');
+
 	useEffect(() => setMounted(true), []);
 
 	if (!mounted) return null;

@@ -9,7 +9,7 @@ export interface IPostProps {
 
 export default function Post(props: IPostProps) {
 	return (
-		<Link href={ `/post/${props.data.id}` }>
+		<Link className="post" href={ `/post/${props.data.id}` }>
 			<div className="generic-box">
 				<div className="absolute rounded-full w-10 h-10 bg-glitter"></div>
 				<div className="ml-12">
