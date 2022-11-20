@@ -49,7 +49,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 			database.collection('posts').doc(data.id).set(data)
 				.then(() => {
-					res.redirect(302, '/');
+					res.status(301).json({});
 				})
 				.catch(e => res.status(500).json({ error: e }))
 
