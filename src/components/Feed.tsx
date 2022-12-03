@@ -1,4 +1,5 @@
-import Post, { PostData } from "./post/Post";
+import PostData from "../models/PostData";
+import Post from "./post/Post";
 
 export interface IFeedProps {
 	posts: PostData[];
