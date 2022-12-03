@@ -1,10 +1,10 @@
 import * as React from "react";
 import MainContainer from "../../components/MainContainer";
 import Post from "../../components/post/Post";
-import PostData from "../../models/PostData";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import fetcher from "../../utils/fetcher";
+import PostData from "../../models/PostData";
 
 export default function PostPage() {
 	const router = useRouter();
@@ -15,7 +15,7 @@ export default function PostPage() {
 
 	return (
 		<MainContainer>
-			<Post data={data} />
+			<Post {... data} />
 		</MainContainer>
 	);
 }
