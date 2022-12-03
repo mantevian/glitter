@@ -48,4 +48,18 @@ html {
 		@apply bg-white-4 dark:bg-black-4
 		p-2;
 	}
+
+	form > input:focus,
+	button:hover,
+	[type="button"]:hover,
+	[type="reset"]:hover,
+	[type="submit"]:hover {
+		@apply outline-1 outline
+		outline-black-5 dark:outline-white-5;
+	}
+
+	.post:hover {
+		@apply outline-1 outline
+		outline-white-5 dark:outline-black-5;
+	}
 }

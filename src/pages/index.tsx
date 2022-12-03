@@ -1,49 +1,47 @@
 import Feed from "../components/Feed";
 import MainContainer from "../components/MainContainer";
-import PostData from "../models/PostData";
 import useSWR from "swr";
-import fetcher from "../setup/fetcher";
-import { FormEvent } from "react";
+import fetcher from "../utils/fetcher";
+
+import { useSession, signIn, signOut } from "next-auth/react";
+import CreatePostForm from "../components/CreatePostForm";
+import UserInitForm from "../components/UserInitForm";
+import PostData from "../models/PostData";
 
 export default function Home() {
-	const { data, error, mutate } = useSWR<PostData[]>("/api/posts/", fetcher);
+	const { data: posts, error: postsError, mutate } = useSWR<PostData[]>("/api/posts/", fetcher);
+	const { data: session }: any = useSession();
+	const { data: userData, error: userError } = useSWR<PostData>(`/api/user/id/${session?.user?.id}`, fetcher);
 
-	if (error) return <div>Error</div>;
-	if (!data) return null;
-
-	const onSubmit = async (e: FormEvent) => {
-		e.preventDefault();
-
-		const form = e.target as HTMLFormElement;
-
-		const data = {
-			author: form.author.value,
-			text: form.text.value,
-		};
-
-		await fetch("/api/post/[id]", {
-			body: JSON.stringify(data),
-			headers: {
-				"Content-Type": "application/json",
-			},
-			method: "POST",
-		});
-
-		mutate();
-	};
+	if (postsError) return <div>Error</div>;
+	if (!posts) return null;
 
 	return (
 		<MainContainer>
-			<form
-				onSubmit={onSubmit}
-				className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4"
-			>
-				Author name: <input type="text" id="author" name="author"></input>
-				Post text: <input type="text" id="text" name="text"></input>
-				<input type="submit" value="send" className="cursor-pointer"></input>
-			</form>
-
-			<Feed posts={data} />
+			{session ? (
+				<>
+					Signed in as {session.user?.email} <button onClick={() => signOut()}>Sign out</button>
+					{userData ? (
+						userData.username === "" ? (
+							<UserInitForm id={userData.id.toString()} />
+						) : (
+							<>
+								<br />
+								Welcome {userData.displayName}! What's on your mind today?
+								<br />
+								<CreatePostForm mutate={mutate} />
+								<Feed posts={posts} />
+							</>
+						)
+					) : (
+						""
+					)}
+				</>
+			) : (
+				<>
+					Not signed in <button onClick={() => signIn()}>Sign in</button>{" "}
+				</>
+			)}
 		</MainContainer>
 	);
 }

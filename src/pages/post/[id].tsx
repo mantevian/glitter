@@ -4,13 +4,13 @@ import Post from "../../components/post/Post";
 import PostData from "../../models/PostData";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import fetcher from "../../setup/fetcher";
+import fetcher from "../../utils/fetcher";
 
 export default function PostPage() {
 	const router = useRouter();
-	const { data, error } = useSWR<PostData>(`/api/post/${router.query.id}`, fetcher);
+	const { data, error } = useSWR<PostData>(router.query.id ? `/api/post/${router.query.id}` : ``, fetcher);
 
-	if (error) return <div>Failed to load post</div>;
+	if (error) return <div>Error</div>;
 	if (!data) return null;
 
 	return (

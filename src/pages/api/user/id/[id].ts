@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createPost, getPost } from '../../../utils/database/posts';
+import { getUserById } from '../../../../utils/database/users';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				return res.status(400).json({ error: 'id not specified' });
 
 			try {
-				const data = await getPost(id);
+				const data = await getUserById(id);
 				res.status(200).json(data);
 			}
 			catch (e) {
@@ -19,15 +19,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			break;
 		}
 
-		case 'POST': {
-			try {
-				createPost(req.body.author, req.body.text);
-				res.status(302).end();
-			}
-			catch (e) {
-				res.status(500).json({ error: e });
-			}
-
+		default: {
+			res.status(405).end();
 			break;
 		}
 	}
