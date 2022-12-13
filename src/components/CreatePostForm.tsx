@@ -1,13 +1,7 @@
 import { useSession } from "next-auth/react";
 import { FormEvent, useRef } from "react";
-import { KeyedMutator } from "swr";
-import PostData from "../models/PostData";
 
-interface ICreatePostFormProps {
-	mutate: KeyedMutator<PostData[]>;
-}
-
-export default function CreatePostForm({ mutate }: ICreatePostFormProps) {
+export default function CreatePostForm() {
 	const postTextRef = useRef<HTMLInputElement>(null);
 	const { data: session }: any = useSession();
 
@@ -30,8 +24,6 @@ export default function CreatePostForm({ mutate }: ICreatePostFormProps) {
 		});
 
 		if (postTextRef.current) postTextRef.current.value = "";
-
-		mutate();
 	};
 
 	return (

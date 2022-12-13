@@ -15,7 +15,7 @@ export default function UserInitForm({ id }: IUserInitFormProps) {
 		const data = {
 			id,
 			username: form.username.value,
-			displayName: form.displayName.value,
+			displayname: form.displayname.value,
 		};
 
 		await fetch("/api/init_user", {
@@ -38,7 +38,7 @@ export default function UserInitForm({ id }: IUserInitFormProps) {
 				className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4"
 			>
 				{"@username (must be unique): "} <input type="text" id="username" name="username"></input>
-				{"Display name: "} <input type="text" id="displayName" name="displayName" ref={postTextRef}></input>
+				{"Display name: "} <input type="text" id="displayname" name="displayname" ref={postTextRef}></input>
 				<input type="submit" value="send" className="cursor-pointer"></input>
 			</form>
 		</>

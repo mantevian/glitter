@@ -1,34 +1,41 @@
-import database, { setDoc, getDocFromCollection, getByQuery } from '../firebase';
+import sql from '../database';
+
+export async function doesUserExist(id: string) {
+	return (await getUserById(id)).length > 0;
+}
 
 export async function getUserById(id: string) {
-	const snapshotData = await getDocFromCollection('users', id);
-
-	const data = {
-		id: snapshotData.id,
-		username: snapshotData.username,
-		displayName: snapshotData.displayName
-	};
-
-	return data;
+	return (await sql`
+	select
+		*
+	from users
+	where id = ${id}
+	`)[0];
 }
 
 export async function getUserByUsername(username: string) {
-	return (await getByQuery(database.collection('users').where('username', '==', username)))[0];
+	return (await sql`
+	select
+		*
+	from users
+	where username = ${username}
+	`)[0];
 }
 
-export function createUser(id: string) {
-	const data = {
-		id,
-		username: '',
-		displayName: ''
-	}
-
-	setDoc('users', data.id, data);
+export async function createUser(id: string) {
+	await sql`
+    insert into users
+      (id)
+    values
+      (${id})
+  	`;
 }
 
-export async function initUser(id: string, username: string, displayName: string) {
-	if (await getUserByUsername(username))
-		throw 'initUser -> Username already exists';
-	
-	setDoc('users', id, { username, displayName }, true);
+export async function initUser(id: string, username: string, displayname: string) {
+	await sql`
+    update users set
+		username = '${username}',
+		displayname = '${displayname}'
+    where id = '${id}'
+  	`;
 }

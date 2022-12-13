@@ -1,14 +1,14 @@
-import PostData from "../models/PostData";
-import Post from "./post/Post";
+import useSWR from "swr";
+import fetcher from "../utils/fetcher";
+import Post, { IPostProps } from "./post/Post";
 
-export interface IFeedProps {
-	posts: PostData[];
-}
-
-export default function Feed(props: IFeedProps) {
+export default function Feed() {
+	const { data: posts, error: postsError } = useSWR<IPostProps[]>("/api/posts/", fetcher);
+	if (postsError) return <div>Error</div>;
+	if (!posts) return null;
 	return (
 		<div className="w-6/12 flex flex-col gap-2 m-2">
-			{props.posts.map((post, i) => (
+			{posts.map((post, i) => (
 				<Post key={i} {...post} />
 			))}
 		</div>

@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { createUser } from "../../../utils/database/users";
-import { docExists } from "../../../utils/firebase";
+import { createUser, doesUserExist } from "../../../utils/database/users";
 
 export const authOptions = {
 	providers: [
@@ -12,7 +11,7 @@ export const authOptions = {
 	],
 	callbacks: {
 		async signIn({ user }: any) {
-			if (!(await docExists('users', user.id)))
+			if (!(await doesUserExist(user.id)))
 				createUser(user.id);
 
 			return true;
