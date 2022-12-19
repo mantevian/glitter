@@ -4,10 +4,10 @@ import { getUserById } from '../../../../utils/database/users';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
 		case 'GET': {
-			const id = req.query.id?.toString();
-
-			if (!id)
+			if (!req.query.id)
 				return res.status(400).json({ error: 'id not specified' });
+
+			const id = req.query.id.toString();
 
 			try {
 				const data = await getUserById(id);

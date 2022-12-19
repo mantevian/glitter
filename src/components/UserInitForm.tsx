@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import { FormEvent, useRef } from "react";
 
 interface IUserInitFormProps {
@@ -31,7 +32,7 @@ export default function UserInitForm({ id }: IUserInitFormProps) {
 
 	return (
 		<>
-			Welcome! Please provide some info to continue.
+			{"Welcome to glitter! Please continue registration by providing a unique @username and any display name."}
 			<form
 				autoComplete="off"
 				onSubmit={onSubmit}
@@ -40,6 +41,7 @@ export default function UserInitForm({ id }: IUserInitFormProps) {
 				{"@username (must be unique): "} <input type="text" id="username" name="username"></input>
 				{"Display name: "} <input type="text" id="displayname" name="displayname" ref={postTextRef}></input>
 				<input type="submit" value="send" className="cursor-pointer"></input>
+				<button onClick={() => signOut()}>Sign out</button>
 			</form>
 		</>
 	);

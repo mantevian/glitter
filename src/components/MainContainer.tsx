@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 import Header from "./Header";
 import Head from "next/head";
 
-export interface IMainContainerProps {
+export interface IHOCProps {
 	children?: ReactNode;
 }
 
-export default function MainContainer(props: IMainContainerProps) {
+export default function MainContainer(props: IHOCProps) {
 	return (
 		<div className="absolute bg-white-0 dark:bg-black-0">
 			<Head>
@@ -16,7 +16,8 @@ export default function MainContainer(props: IMainContainerProps) {
 			</Head>
 
 			<Header />
-			{props.children}
+
+			<div className="mx-64">{props.children}</div>
 		</div>
 	);
 }

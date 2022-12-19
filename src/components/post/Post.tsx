@@ -17,7 +17,7 @@ export default function Post(props: IPostProps) {
 			<div className="generic-box">
 				<div className="absolute rounded-full w-10 h-10 bg-glitter"></div>
 				<div className="ml-12">
-					<div className="flex gap-2 items-center">
+					<div className="flex gap-2 items-baseline">
 						<div className="flex gap-2 items-center">
 							<span className="font-semibold text-glitter">{props.authorDisplayName}</span>
 							<span className="font-semibold text-black-7">@{props.authorUsername}</span>
