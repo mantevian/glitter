@@ -1,9 +1,11 @@
 import { useSession } from "next-auth/react";
 import { FormEvent, useRef } from "react";
+import { useSWRConfig } from "swr";
 
 export default function CreatePostForm() {
 	const postTextRef = useRef<HTMLInputElement>(null);
 	const { data: session }: any = useSession();
+	const { mutate } = useSWRConfig();
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
@@ -24,6 +26,8 @@ export default function CreatePostForm() {
 		});
 
 		if (postTextRef.current) postTextRef.current.value = "";
+
+		mutate("/api/posts/");
 	};
 
 	return (

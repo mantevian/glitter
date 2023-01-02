@@ -12,7 +12,8 @@ export const authOptions = {
 	],
 	callbacks: {
 		async signIn({ user }: any) {
-			await createUser(user.id);
+			try { await createUser(user.id); }
+			catch (error) { console.log(error) }
 
 			return true;
 		},

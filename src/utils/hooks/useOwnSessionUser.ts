@@ -4,12 +4,13 @@ import fetcher from "../fetcher";
 
 export default function useOwnSessionUser() {
 	const { data: sessionData, status: sessionStatus } = useSession();
-	const { data: userData, error: userError } = useSWR(`/api/user/id/${sessionData?.user?.id}`, fetcher);
+	const { data: userData, error: userError, isValidating: userLoading } = useSWR(`/api/user/id/${sessionData?.user?.id}`, fetcher);
 
 	return {
 		sessionData,
 		sessionStatus,
 		userData,
-		userError
+		userError,
+		userLoading
 	}
 }

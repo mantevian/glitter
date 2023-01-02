@@ -1,9 +1,20 @@
-import postgres from "postgres";
+import mysql from 'serverless-mysql';
 
-const sql = postgres(process.env.DATABASE_URL ?? '', {
-	max: 3,
-	max_lifetime: 1,
-	idle_timeout: 1
+const connection = mysql({
+	config: {
+		host: process.env.MYSQL_HOST,
+		user: process.env.MYSQL_USER,
+		password: process.env.MYSQL_PASSWORD,
+		database: process.env.MYSQL_DATABASE
+	}
 });
 
-export default sql;
+connection.connect();
+
+async function query(q: string): Promise<any> {
+	let results = await connection.query(q);
+	await connection.end();
+	return results;
+}
+
+export default query;

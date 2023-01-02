@@ -4,13 +4,14 @@ import useOwnSessionUser from "../utils/hooks/useOwnSessionUser";
 import useRedirect from "../utils/hooks/useRedirect";
 
 export default function Home() {
-	const { sessionStatus, userData } = useOwnSessionUser();
+	const { sessionStatus, userData, userLoading } = useOwnSessionUser();
 
-	useRedirect(() => sessionStatus == "unauthenticated" || !userData || (userData && !userData.username), "/login", [sessionStatus]);
+	useRedirect(() => sessionStatus == "unauthenticated"
+		|| (!userLoading && (!userData || !userData.username)), "/login", []);
 
 	return (
 		<MainContainer>
-			<HomeContent displayName={userData?.displayname.toString()} />
+			<HomeContent displayName={userData?.display_name.toString()} />
 		</MainContainer>
 	);
 }

@@ -1,82 +1,47 @@
-import sql from '../database';
+import query from '../database';
 import { Identifier } from '../Identifier';
-import { parseSQLRow } from '../regex';
 
 export async function getAllPosts() {
-	let rows = await sql`
-	select (
-		users.id,
-		users.username,
-		users.displayname,
-		posts.id,
-		posts.createdtimestamp,
-		posts.text
-	)
-	from
-		posts
-	inner join
-		users
-	on
-		posts.author = users.id
-	order by
-		createdtimestamp
-	desc
-	limit 100
-	`;
-
-	let result = rows.map(row => {
-		let fields = parseSQLRow(row.row);
-
+	return (await query(`
+	select 
+		glitter_users.id as user_id,
+		glitter_users.username,
+		glitter_users.display_name,
+		glitter_posts.id as post_id,
+		glitter_posts.created_timestamp,
+		glitter_posts.text
+	from glitter_posts inner join glitter_users on glitter_posts.author = glitter_users.id
+	order by glitter_posts.created_timestamp desc limit 100
+	`)).map(row => {
 		return {
-			authorId: fields[0],
-			authorUsername: fields[1],
-			authorDisplayName: fields[2],
-			postId: fields[3],
-			postCreatedTimestamp: parseInt(fields[4]),
-			postText: fields[5]
+			authorId: row.user_id,
+			authorUsername: row.username,
+			authorDisplayName: row.display_name,
+			postId: row.post_id,
+			postCreatedTimestamp: row.created_timestamp,
+			postText: row.text,
 		}
 	});
-
-	return result;
 }
 
 export async function getPost(id: string) {
-	let row = (await sql`
-	select (
-		users.id,
-		users.username,
-		users.displayname,
-		posts.id,
-		posts.createdtimestamp,
-		posts.text
-	)
-	from
-		posts
-	inner join
-		users
-	on
-		posts.author = users.id
-	where
-		posts.id = ${id}
-	`)[0].row;
-
-	let fields = parseSQLRow(row);
-
-	return {
-		authorId: fields[0],
-		authorUsername: fields[1],
-		authorDisplayName: fields[2],
-		postId: fields[3],
-		postCreatedTimestamp: parseInt(fields[4]),
-		postText: fields[5]
-	}
+	return await query(`
+	select 
+		glitter_users.id,
+		glitter_users.username,
+		glitter_users.display_name,
+		glitter_posts.id,
+		glitter_posts.created_timestamp,
+		glitter_posts.text
+	from glitter_posts inner join glitter_users on glitter_posts.author = glitter_users.id where glitter_posts.id = '${id}'
+	`);
 }
 
 export async function createPost(author: string, text: string) {
-	await sql`
-	insert into posts
-		(id, author, text, createdtimestamp)
+	return await query(`
+	insert into glitter_posts
+		(id, author, text, created_timestamp)
 	values
-		(${new Identifier().toString()}, ${author}, ${text}, ${Math.floor(Date.now() / 1000)})
-	`;
+		(${new Identifier().toString()}, ${author}, '${text}', ${Math.floor(Date.now() / 1000)})
+	`);
 }
