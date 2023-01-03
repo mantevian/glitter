@@ -14,7 +14,6 @@ export interface IPostProps {
 }
 
 export default function Post(props: IPostProps) {
-	console.log(props.postText)
 	return (
 		<Link className="post" href={`/post/${props.postId}`}>
 			<div className="generic-box">
