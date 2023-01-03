@@ -20,15 +20,6 @@ html {
 			border-white-3 dark:border-black-3;
 	}
 
-	.header {
-		@apply sticky z-10 top-0 left-0
-			flex items-center
-			h-12 w-screen
-			bg-white-3 dark:bg-black-3
-			border-b border-white-6 dark:border-black-6
-			px-16;
-	}
-
 	.timestamp {
 		@apply text-xs
 			text-white-7 dark:text-black-7
@@ -36,9 +27,13 @@ html {
 			align-bottom;
 	}
 
-	form > input {
+	form > input, textarea {
 		@apply bg-white-4 dark:bg-black-4
 		p-1;
+	}
+
+	form > input[type="submit"] {
+		cursor: pointer;
 	}
 
 	.button {
@@ -57,6 +52,7 @@ html {
 	form > input:focus,
 	button:hover,
 	.button:hover,
+	textarea:focus,
 	[type="button"]:hover,
 	[type="reset"]:hover,
 	[type="submit"]:hover {

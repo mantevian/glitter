@@ -1,20 +1,18 @@
 import { useSession } from "next-auth/react";
 import { FormEvent, useRef } from "react";
 import { useSWRConfig } from "swr";
+const he = require("he");
 
 export default function CreatePostForm() {
-	const postTextRef = useRef<HTMLInputElement>(null);
+	const postTextRef = useRef<HTMLTextAreaElement>(null);
 	const { data: session }: any = useSession();
 	const { mutate } = useSWRConfig();
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-
-		const form = e.target as HTMLFormElement;
-
 		const data = {
 			author: session.user.id,
-			text: form.text.value,
+			text: he.encode(postTextRef.current?.value),
 		};
 
 		await fetch("/api/post/[id]", {
@@ -31,9 +29,9 @@ export default function CreatePostForm() {
 	};
 
 	return (
-		<form autoComplete="off" onSubmit={onSubmit} className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4">
-			Post text: <input type="text" id="text" name="text" size={100} ref={postTextRef}></input>
-			<input type="submit" value="send" className="cursor-pointer"></input>
-		</form>
+		<div className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4">
+			Post text: <textarea name="text" className="w-full" ref={postTextRef}></textarea>
+			<button onMouseDown={onSubmit}>Send</button>
+		</div>
 	);
 }

@@ -1,6 +1,8 @@
 import Timestamp from "./Timestamp";
 import * as React from "react";
 import Link from "next/link";
+const he = require("he");
+import Markdown from "markdown-to-jsx";
 
 export interface IPostProps {
 	authorId: string;
@@ -12,6 +14,7 @@ export interface IPostProps {
 }
 
 export default function Post(props: IPostProps) {
+	console.log(props.postText)
 	return (
 		<Link className="post" href={`/post/${props.postId}`}>
 			<div className="generic-box">
@@ -24,7 +27,9 @@ export default function Post(props: IPostProps) {
 						</div>
 						<Timestamp timestamp={props.postCreatedTimestamp} />
 					</div>
-					<div className="break-words text-black-6 dark:text-white-6">{props.postText}</div>
+					<div className="break-words text-black-6 dark:text-white-6">
+						<Markdown>{he.decode(props.postText)}</Markdown>
+					</div>
 				</div>
 			</div>
 		</Link>
