@@ -15,7 +15,10 @@ export default function Post(props: IPostProps) {
 				<div className="ml-12">
 					<div className="flex gap-2 items-baseline">
 						<div className="flex gap-2 items-center">
-							<span className={`font-semibold ${props.author.color ? `text-[#${props.author.color}]` : "text-glitter"}`}>{props.author.displayName}</span>
+							<span className="font-semibold text-glitter"
+								style={{
+								color: `#${props.author.color}`
+							}}>{props.author.displayName}</span>
 							<span className="font-semibold text-black-7">@{props.author.username}</span>
 						</div>
 						<Timestamp timestamp={props.createdTimestamp} />

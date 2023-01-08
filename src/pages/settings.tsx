@@ -30,8 +30,6 @@ export default function Settings() {
 			},
 			method: "POST",
 		});
-
-		window.location.reload();
 	};
 
 	return (
@@ -48,10 +46,10 @@ export default function Settings() {
 				onSubmit={onSubmit}
 				className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4"
 			>
-				{"@username (must be unique): "} <input type="text" id="username" name="username" value={userData?.username} />
-				{"Display name: "} <input type="text" id="displayName" name="displayName" value={userData?.display_name} />
-				{"Avatar URL: "} <input type="text" id="avatarURL" name="avatarURL" value={userData?.avatar_url} />
-				{"Profile color: "} <input type="color" id="color" name="color" value={"#" + userData?.color} />
+				{"@username (must be unique): "} <input type="text" id="username" name="username" defaultValue={userData?.username} />
+				{"Display name: "} <input type="text" id="displayName" name="displayName" defaultValue={userData?.display_name} />
+				{"Avatar URL: "} <input type="text" id="avatarURL" name="avatarURL" defaultValue={userData?.avatar_url} />
+				{"Profile color: "} <input type="color" id="color" name="color" defaultValue={"#" + userData?.color} />
 				<input type="submit" value="Send" className="cursor-pointer" />
 			</form>
 		</div>
