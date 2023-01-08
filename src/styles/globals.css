@@ -20,13 +20,6 @@ html {
 			border-white-3 dark:border-black-3;
 	}
 
-	.timestamp {
-		@apply text-xs
-			text-white-7 dark:text-black-7
-			font-medium
-			align-bottom;
-	}
-
 	form > input, textarea {
 		@apply bg-white-4 dark:bg-black-4
 		p-1;

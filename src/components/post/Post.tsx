@@ -19,7 +19,7 @@ export default function Post(props: IPostProps) {
 								style={{
 								color: `#${props.author.color}`
 							}}>{props.author.displayName}</span>
-							<span className="font-semibold text-black-7">@{props.author.username}</span>
+							<span className="text-white-6 dark:text-black-6">@{props.author.username}</span>
 						</div>
 						<Timestamp timestamp={props.createdTimestamp} />
 					</div>

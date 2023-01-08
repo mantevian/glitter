@@ -20,5 +20,14 @@ export default function Timestamp(props: ITimestampProps) {
 
 	useInterval(() => setDate(formatTimestamp(props.timestamp)), 1000);
 
-	return <span className="timestamp">{date}</span>;
+	return (
+		<span
+			className="text-xs
+			text-white-6 dark:text-black-6
+			font-medium
+			align-bottom"
+		>
+			{date}
+		</span>
+	);
 }
