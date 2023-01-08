@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { IPostProps } from '../../../models/client/postProps';
 import { createPost, getPost } from '../../../utils/database/posts';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

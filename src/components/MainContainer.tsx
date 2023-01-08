@@ -9,7 +9,7 @@ export interface IMainContainerProps {
 
 export default function MainContainer(props: IMainContainerProps) {
 	return (
-		<div>
+		<div className="bg-white-0 dark:bg-black-0">
 			<Head>
 				<title>glitter</title>
 				<link rel="icon" href="/favicon.ico" />

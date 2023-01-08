@@ -1,40 +1,62 @@
+import { IPostProps } from '../../models/client/postProps';
 import query from '../database';
 import { Identifier } from '../Identifier';
 
 export async function getAllPosts() {
 	return (await query(`
 	select 
-		glitter_users.id as user_id,
-		glitter_users.username,
-		glitter_users.display_name,
-		glitter_posts.id as post_id,
-		glitter_posts.created_timestamp,
-		glitter_posts.text
+		glitter_users.id as authorId,
+		glitter_users.username as authorUsername,
+		glitter_users.display_name as authorDisplayName,
+		glitter_users.avatar_url as authorAvatarURL,
+		glitter_users.color as authorColor,
+		glitter_posts.id as postId,
+		glitter_posts.created_timestamp as postCreatedTimestamp,
+		glitter_posts.text as postText
 	from glitter_posts inner join glitter_users on glitter_posts.author = glitter_users.id
 	order by glitter_posts.created_timestamp desc limit 100
 	`)).map(row => {
 		return {
-			authorId: row.user_id,
-			authorUsername: row.username,
-			authorDisplayName: row.display_name,
-			postId: row.post_id,
-			postCreatedTimestamp: row.created_timestamp,
-			postText: row.text,
-		}
+			author: {
+				id: row.authorId,
+				username: row.authorUsername,
+				displayName: row.authorDisplayName,
+				avatarURL: row.authorAvatarURL,
+				color: row.authorColor
+			},
+			id: row.postId,
+			createdTimestamp: row.postCreatedTimestamp,
+			text: row.postText
+		} as IPostProps
 	});
 }
 
 export async function getPost(id: string) {
-	return (await query(`
+	const data = (await query(`
 	select 
 		glitter_users.id as authorId,
 		glitter_users.username as authorUsername,
 		glitter_users.display_name as authorDisplayName,
+		glitter_users.avatar_url as authorAvatarURL,
+		glitter_users.color as authorColor,
 		glitter_posts.id as postId,
 		glitter_posts.created_timestamp as postCreatedTimestamp,
 		glitter_posts.text as postText
 	from glitter_posts inner join glitter_users on glitter_posts.author = glitter_users.id where glitter_posts.id = '${id}'
 	`))[0];
+
+	return {
+		author: {
+			id: data.authorId,
+			username: data.authorUsername,
+			displayName: data.authorDisplayName,
+			avatarURL: data.authorAvatarURL,
+			color: data.authorColor
+		},
+		id: data.postId,
+		createdTimestamp: data.postCreatedTimestamp,
+		text: data.postText
+	} as IPostProps
 }
 
 export async function createPost(author: string, text: string) {

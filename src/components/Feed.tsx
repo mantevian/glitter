@@ -1,6 +1,7 @@
 import useSWR from "swr";
+import { IPostProps } from "../models/client/postProps";
 import fetcher from "../utils/fetcher";
-import Post, { IPostProps } from "./post/Post";
+import Post from "./post/Post";
 
 export default function Feed() {
 	const { data: posts, error: postsError } = useSWR<IPostProps[]>("/api/posts/", fetcher);

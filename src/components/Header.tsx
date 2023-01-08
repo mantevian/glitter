@@ -1,13 +1,8 @@
 import Link from "next/link";
 import * as React from "react";
-import useOwnSessionUser from "../utils/hooks/useOwnSessionUser";
 import ThemeSwitch from "./ThemeSwitch";
 
-export interface IHeaderProps {}
-
-export default function Header(props: IHeaderProps) {
-	const { userData } = useOwnSessionUser();
-	
+export default function Header() {
 	return (
 		<div
 			className="sticky z-10 top-0 left-0
@@ -17,9 +12,6 @@ export default function Header(props: IHeaderProps) {
 			border-b border-white-6 dark:border-black-6
 			px-16"
 		>
-			<div>
-				@{userData?.username}
-			</div>
 			<div className="flex items-center">
 				Theme:
 				<ThemeSwitch />

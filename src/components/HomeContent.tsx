@@ -1,10 +1,11 @@
-import * as React from 'react';
-import CreatePostForm from './CreatePostForm';
-import Feed from './Feed';
-
+import * as React from "react";
+import CreatePostForm from "./CreatePostForm";
+import Feed from "./Feed";
 
 export default function HomeContent({ displayName }: { displayName: string }) {
-  return (
+	if (!displayName) return <>Loading...</>;
+
+	return (
 		<>
 			<br />
 			Welcome {displayName}! What's on your mind today?
@@ -13,5 +14,5 @@ export default function HomeContent({ displayName }: { displayName: string }) {
 			<CreatePostForm />
 			<Feed />
 		</>
-  );
+	);
 }

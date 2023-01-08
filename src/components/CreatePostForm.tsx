@@ -5,13 +5,13 @@ const he = require("he");
 
 export default function CreatePostForm() {
 	const postTextRef = useRef<HTMLTextAreaElement>(null);
-	const { data: session }: any = useSession();
+	const { data: session } = useSession();
 	const { mutate } = useSWRConfig();
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 		const data = {
-			author: session.user.id,
+			author: session?.user?.id,
 			text: he.encode(postTextRef.current?.value),
 		};
 
