@@ -4,7 +4,7 @@ import { useSWRConfig } from "swr";
 const he = require("he");
 
 export default function CreatePostForm() {
-	const postTextRef = useRef<HTMLTextAreaElement>(null);
+	const post_textRef = useRef<HTMLTextAreaElement>(null);
 	const { data: session } = useSession();
 	const { mutate } = useSWRConfig();
 
@@ -12,7 +12,7 @@ export default function CreatePostForm() {
 		e.preventDefault();
 		const data = {
 			author: session?.user?.id,
-			text: he.encode(postTextRef.current?.value),
+			text: he.encode(post_textRef.current?.value),
 		};
 
 		await fetch("/api/post/[id]", {
@@ -23,14 +23,14 @@ export default function CreatePostForm() {
 			method: "POST",
 		});
 
-		if (postTextRef.current) postTextRef.current.value = "";
+		if (post_textRef.current) post_textRef.current.value = "";
 
 		mutate("/api/posts/");
 	};
 
 	return (
 		<div className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4">
-			Post text: <textarea name="text" className="w-full" ref={postTextRef}></textarea>
+			Post text: <textarea name="text" className="w-full" ref={post_textRef}></textarea>
 			<button onMouseDown={onSubmit}>Send</button>
 		</div>
 	);

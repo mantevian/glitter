@@ -3,6 +3,6 @@ import { IUserProps } from "./userProps";
 export interface IPostProps {
 	author: IUserProps
 	id: string;
-	createdTimestamp: number;
+	created_timestamp: number;
 	text: string;
 }

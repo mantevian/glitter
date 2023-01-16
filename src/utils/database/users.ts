@@ -30,22 +30,22 @@ export async function createUser(id: string) {
 	`);
 }
 
-export async function initUser(id: string, username: string, displayName: string) {
+export async function initUser(id: string, username: string, display_name: string) {
 	await query(`
 	update glitter_users
 	set
 		username = '${username}',
-		display_name = '${displayName}'
+		display_name = '${display_name}'
 	where id = '${id}'`);
 }
 
-export async function updateUser(id: string, options: { username: string, displayName: string, avatarURL: string, color: string }) {
+export async function updateUser(id: string, options: { username: string, display_name: string, avatar_url: string, color: string }) {
 	await query(`
 	update glitter_users
 	set
 		username = '${options.username}',
-		display_name = '${options.displayName}',
-		avatar_url = '${options.avatarURL}',
+		display_name = '${options.display_name}',
+		avatar_url = '${options.avatar_url}',
 		color = '${options.color}'
 	where id = '${id}'`);
 }

@@ -1,16 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getUserByUsername } from '../../../utils/database/users';
+import { getAllPostsByUserId } from '../../../../utils/database/posts';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
 		case 'GET': {
-			const username = req.query.username?.toString();
+			if (!req.query.id)
+				return res.status(400).json({ error: 'id not specified' });
 
-			if (!username)
-				return res.status(404).end();
+			const id = req.query.id.toString();
 
 			try {
-				const data = await getUserByUsername(username);
+				const data = await getAllPostsByUserId(id);
 				res.status(200).json(data);
 			}
 			catch (e) {

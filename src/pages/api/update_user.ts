@@ -7,8 +7,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			try {
 				updateUser(req.body.id, {
 					username: req.body.username,
-					displayName: req.body.displayName,
-					avatarURL: req.body.avatarURL,
+					display_name: req.body.display_name,
+					avatar_url: req.body.avatar_url,
 					color: req.body.color
 				});
 				res.status(302).end();

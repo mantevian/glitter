@@ -8,7 +8,7 @@ import useRedirect from "../utils/hooks/useRedirect";
 export default function Settings() {
 	const { sessionData, sessionStatus, userData } = useOwnSessionUser();
 
-	useRedirect(() => sessionStatus == "unauthenticated" || !sessionData, "./login", [sessionData, sessionStatus]);
+	useRedirect(() => sessionStatus == "unauthenticated" || !sessionData, "/login", [sessionData, sessionStatus]);
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
@@ -18,9 +18,9 @@ export default function Settings() {
 		const data = {
 			id: sessionData?.user?.id,
 			username: form.username.value ?? userData?.username,
-			displayName: form.displayName.value ?? userData?.display_name,
-			avatarURL: form.avatarURL.value ?? userData?.avatar_url,
-			color: form.color.value.replace("#", "") ?? userData?.color
+			display_name: form.display_name.value ?? userData?.display_name,
+			avatar_url: form.avatar_url.value ?? userData?.avatar_url,
+			color: form.color.value.replace("#", "") ?? userData?.color,
 		};
 
 		await fetch("/api/update_user", {
@@ -34,7 +34,7 @@ export default function Settings() {
 
 	return (
 		<div>
-			<Link className="button" href="./">
+			<Link className="button" href="/">
 				Back
 			</Link>
 			<br />
@@ -47,8 +47,8 @@ export default function Settings() {
 				className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4"
 			>
 				{"@username (must be unique): "} <input type="text" id="username" name="username" defaultValue={userData?.username} />
-				{"Display name: "} <input type="text" id="displayName" name="displayName" defaultValue={userData?.display_name} />
-				{"Avatar URL: "} <input type="text" id="avatarURL" name="avatarURL" defaultValue={userData?.avatar_url} />
+				{"Display name: "} <input type="text" id="display_name" name="display_name" defaultValue={userData?.display_name} />
+				{"Avatar URL: "} <input type="text" id="avatar_url" name="avatar_url" defaultValue={userData?.avatar_url} />
 				{"Profile color: "} <input type="color" id="color" name="color" defaultValue={"#" + userData?.color} />
 				<input type="submit" value="Send" className="cursor-pointer" />
 			</form>
