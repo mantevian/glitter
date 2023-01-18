@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { IPostProps } from '../../../models/client/postProps';
-import { createPost, getPost } from '../../../utils/database/posts';
+import { getPost } from '../../../utils/database/posts';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
@@ -20,16 +19,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			break;
 		}
 
-		case 'POST': {
-			try {
-				createPost(req.body.author, req.body.text);
-				res.status(302).end();
-			}
-			catch (e) {
-				res.status(500).json({ error: e });
-			}
-
-			break;
+		default: {
+			res.status(405).end();
 		}
 	}
 }

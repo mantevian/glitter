@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				res.status(302).end();
 			}
 			catch (e) {
-				res.status(500).redirect('./');
+				res.status(500).redirect('/');
 			}
 
 			break;

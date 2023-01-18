@@ -14,11 +14,15 @@ export default function () {
 	if (!mounted) return null;
 
 	return (
-		<div className="m-2 text-black-2 dark:text-white-2">
-			<select value={theme} onChange={(e) => setTheme(e.target.value)}>
-				<option value="light">Light</option>
-				<option value="dark">Dark</option>
-			</select>
+		<div className="text-black-2 dark:text-white-2">
+			<input
+				type="checkbox"
+				id="checkbox"
+				className="invisible absolute"
+				checked={theme == "dark"}
+				onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
+			/>
+			<label htmlFor="checkbox" className="block w-6 h-6 cursor-pointer bg-contain image-light-mode dark:image-dark-mode" />
 		</div>
 	);
 }

@@ -33,7 +33,7 @@ export default function Settings() {
 	};
 
 	return (
-		<div>
+		<div className="mt-2">
 			<Link className="button" href="/">
 				Back
 			</Link>

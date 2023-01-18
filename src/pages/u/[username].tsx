@@ -19,7 +19,7 @@ export default function UserProfile(props: IUserProfileProps) {
 
 	return (
 		<>
-			<div className="generic-box mt-2 flex items-baseline gap-5">
+			<div className="mt-2 flex items-baseline gap-5">
 				<img className="inline aspect-square w-32 rounded-full" src={data?.avatar_url ?? ""} />
 				<span className="text-5xl font-bold">
 					<CustomColoredComponent color={data?.color}>{data?.display_name}</CustomColoredComponent>
@@ -27,7 +27,7 @@ export default function UserProfile(props: IUserProfileProps) {
 				<span className="text-4xl text-white-6 dark:text-black-6">{`@${data?.username}`}</span>
 			</div>
 
-			<div className="generic-box mt-2 flex flex-col gap-2">
+			<div className="mt-2 flex flex-col gap-2">
 				{posts?.map((post, i) => (
 					<Post key={i} {...post} />
 				))}

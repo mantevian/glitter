@@ -15,7 +15,7 @@ export default function CreatePostForm() {
 			text: he.encode(post_textRef.current?.value),
 		};
 
-		await fetch("/api/post/[id]", {
+		await fetch("/api/create_post", {
 			body: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json",
@@ -29,9 +29,9 @@ export default function CreatePostForm() {
 	};
 
 	return (
-		<div className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4">
-			Post text: <textarea name="text" className="w-full" ref={post_textRef}></textarea>
-			<button onMouseDown={onSubmit}>Send</button>
+		<div className="generic-box flex flex-col gap-2 items-start text-black-4 dark:text-white-4 mt-2">
+			<textarea name="text" className="w-full" ref={post_textRef}></textarea>
+			<button onMouseDown={onSubmit}>Create</button>
 		</div>
 	);
 }

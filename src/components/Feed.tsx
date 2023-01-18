@@ -10,7 +10,7 @@ export default function Feed() {
 	if (!posts) return <div>Loading...</div>;
 
 	return (
-		<div className="flex flex-col gap-2 m-2">
+		<div className="flex flex-col gap-2 my-2">
 			{posts.map((post, i) => (
 				<Post key={i} {...post} />
 			))}

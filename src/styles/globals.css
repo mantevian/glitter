@@ -20,7 +20,8 @@ html {
 			border-white-3 dark:border-black-3;
 	}
 
-	form > input, textarea {
+	form > input,
+	textarea {
 		@apply bg-white-4 dark:bg-black-4
 		p-1;
 	}
@@ -56,5 +57,17 @@ html {
 	.post:hover {
 		@apply outline-1 outline
 		outline-white-5 dark:outline-black-5;
+	}
+
+	.image-dark-mode {
+		background-image: url("/dark.png");
+	}
+
+	.image-light-mode {
+		background-image: url("/light.png");
+	}
+
+	.info-page p, .info-page br {
+		margin-bottom: 0.5rem;
 	}
 }
