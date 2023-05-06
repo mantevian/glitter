@@ -15,7 +15,7 @@
     "javascript-time-ago": "^2.5.9",
     "markdown-to-jsx": "^7.1.8",
     "next": "latest",
-    "next-auth": "^4.17.0",
+    "next-auth": "^4.20.1",
     "next-themes": "^0.2.1",
     "nodejs-snowflake": "^2.0.1",
     "react": "18.2.0",
